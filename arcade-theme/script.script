@@ -1,0 +1,36 @@
+# Load images
+background = Image("background.png");
+logo = Image("logo.png");
+progress_bar = Image.New(200, 20);  # Create a simple progress bar sprite
+
+# Position elements
+screen_width = Window.GetWidth();
+screen_height = Window.GetHeight();
+
+background_sprite = Sprite();
+background_sprite.SetImage(background.Resize(screen_width, screen_height));  # Scale to fit screen
+background_sprite.SetPosition(0, 0, -10);
+
+logo_sprite = Sprite();
+logo_sprite.SetImage(logo);
+logo_sprite.SetPosition((screen_width - logo.GetWidth()) / 2, (screen_height - logo.GetHeight()) / 2, 0);
+
+progress_sprite = Sprite();
+progress_sprite.SetImage(progress_bar);
+progress_sprite.SetPosition((screen_width - 200) / 2, screen_height - 50, 0);
+
+# Callback for boot progress (updates bar width)
+fun progress_callback (progress) {
+  progress_bar.SetWidth(200 * progress);  # Scale bar based on boot progress (0-1)
+  progress_sprite.SetImage(progress_bar);
+}
+
+Plymouth.SetUpdateStatusFunction(progress_callback);  # Bind to boot events
+
+# Refresh callback for animation (up to 50x/sec)
+fun refresh_callback () {
+  # Optional: Add subtle animation, e.g., rotate logo slightly
+  logo_sprite.SetRotation(logo_sprite.GetRotation() + 0.01);
+}
+
+Plymouth.SetRefreshFunction(refresh_callback);
