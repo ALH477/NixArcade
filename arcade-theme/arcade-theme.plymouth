@@ -1,0 +1,7 @@
+[Plymouth Theme]
+Name=Arcade Theme
+Description=Retro arcade boot screen for NixArcade
+ModuleName=script
+[script]
+ImageDir=/boot/plymouth/themes/arcade-theme
+ScriptFile=/boot/plymouth/themes/arcade-theme/script.script
